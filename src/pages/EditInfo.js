@@ -123,7 +123,7 @@ const EditInfo = () => {
                             <Input.Password/>
                         </Form.Item>
                         <Form.Item
-                            name="nickname"
+                            name="name"
                             label="닉네임"
                             value={name}
                             onChange={(e) => setName(e.target.value)}

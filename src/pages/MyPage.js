@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Layout, Button, Form, Input, Select, Space, Col, Row} from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
@@ -7,7 +7,6 @@ import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
 const MyPage = () => {
-    const [form] = Form.useForm();
     const [userId,setUserId] = useState('');
     const navigate = useNavigate();
 

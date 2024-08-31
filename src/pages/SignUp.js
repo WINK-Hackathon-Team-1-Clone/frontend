@@ -25,11 +25,11 @@ const SignUp = () => {
     const [userId,setUserId] = useState('');
     const [password,setPassword] = useState('');
     const [passwordAgain,setPasswordAgain] = useState('');
-    const [nickname,setNickname] = useState('');
+    const [name,setName] = useState('');
 
     const SignUpFunc = () => {
         if (password === passwordAgain) {
-            axios.post('https://10.223.126.146:443/members', {userId, password, nickname}, {
+            axios.post('https://10.223.126.146:443/members', {userId, password, name}, {
                 withCredentials: true
             })
                 .then(response => {
@@ -50,12 +50,6 @@ const SignUp = () => {
     const onReset = () => {
         form.resetFields();
     };
-    const onFill = () => {
-        form.setFieldsValue({
-            note: 'Hello world!',
-            gender: 'male',
-        });
-    };
 
 
     return (
@@ -70,7 +64,7 @@ const SignUp = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Main" style={{
+                    <Link to="/pages/Login" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>
@@ -129,10 +123,10 @@ const SignUp = () => {
                             <Input.Password/>
                         </Form.Item>
                         <Form.Item
-                            name="nickname"
+                            name="name"
                             label="닉네임"
-                            value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             rules={[
                                 {
                                     required: true, message: "닉네임을 입력해 주세요!"
@@ -149,7 +143,7 @@ const SignUp = () => {
                                     가입 완료
                                 </Button>
                                 <Button htmlType="button" size='large'>
-                                    <Link to="/pages/Main">처음으로</Link>
+                                    <Link to="/pages/Login">처음으로</Link>
                                 </Button>
                                 <Button type="link" htmlType="button" size='large' onClick={onReset}>
                                     초기화

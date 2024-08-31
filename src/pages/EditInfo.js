@@ -1,13 +1,11 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import { Layout, Button, Form, Input, Select, Space } from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import TextArea from "antd/es/input/TextArea";
-import {click} from "@testing-library/user-event/dist/click";
+import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
-const { Option } = Select;
 const layout = {
     labelCol: {
         span: 8,
@@ -26,12 +24,10 @@ const EditInfo = () => {
     const [form] = Form.useForm();
     const [userId,setUserId] = useState('');
     const [password,setPassword] = useState('');
-    const [passwordAgain,setPasswordAgain] = useState('');
     const [name,setName] = useState('');
     const [nowPassword, setNowpassword] = useState('');
     const [newPassword, setNewpassword] = useState('');
     const navigate = useNavigate();
-
 
     const onFinish = (values) => {
         console.log(values);
@@ -39,7 +35,6 @@ const EditInfo = () => {
     const onReset = () => {
         form.resetFields();
     };
-
 
     const clickEditUser = () =>{
 
@@ -57,8 +52,6 @@ const EditInfo = () => {
         })
     }
 
-
-
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Content style={{ padding: "0 20px", flex: 1 }}>
@@ -71,7 +64,7 @@ const EditInfo = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Main" style={{
+                    <Link to="/pages/Login" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>
@@ -130,7 +123,7 @@ const EditInfo = () => {
                             <Input.Password/>
                         </Form.Item>
                         <Form.Item
-                            name="nickname"
+                            name="name"
                             label="닉네임"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -150,7 +143,7 @@ const EditInfo = () => {
                                     수정 완료
                                 </Button>
                                 <Button htmlType="button" size='large'>
-                                    <Link to="/pages/Main">처음으로</Link>
+                                    <Link to="/pages/Login">처음으로</Link>
                                 </Button>
                                 <Button type="link" htmlType="button" size='large' onClick={onReset}>
                                     초기화
@@ -160,6 +153,7 @@ const EditInfo = () => {
                     </Form>
                 </div>
             </Content>
+            <BottomFooter/>
         </Layout>
     );
 }

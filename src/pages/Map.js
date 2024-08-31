@@ -50,17 +50,41 @@ const Map = () => {
   const LIMIT_METER = 500;
   const EARTH_RADIUS = 6371000;
 
+  /**
+   * @typedef Position
+   * @prop {number} lat
+   * @prop {number} lng
+   *
+   * @typedef Marker
+   * @prop {Position} position
+   * @prop {string} content
+   * @prop {string} category
+   */
+
   /** @type {ReturnType<typeof useState<kakao.maps.Map>>} */
   const [map, setMap] = useState(null);
+
+  /** @type {ReturnType<typeof useState<Marker[]>>} */
   const [markers, setMarkers] = useState([]);
+
+  /** @type {ReturnType<typeof useState<Marker>>} */
   const [info, setInfo] = useState();
+
   /** @type {ReturnType<typeof useState<string[]>>} */
   const [categories, setCategories] = useState([]);
-  /** @type {ReturnType<typeof useState<{lat: number, lng: number}[]>>} */
+
+  /** @type {ReturnType<typeof useState<Position[]>>} */
   const [hole, setHole] = useState([]);
-  /** @type {ReturnType<typeof useState<{lat: number, lng: number}>>} */
+
+  /** @type {ReturnType<typeof useState<Position>>} */
   const [center, setCenter] = useState({ lat: 37.5665, lng: 126.978 });
 
+  /**
+   * @param {Position} center
+   * @param {number} radius
+   * @param {number} angle
+   * @returns {Position}
+   */
   const computeOffset = (center, radius, angle) => {
     const delta = radius / EARTH_RADIUS;
     const theta = (angle * Math.PI) / 180;
@@ -86,6 +110,11 @@ const Map = () => {
     };
   };
 
+  /**
+   * @param {Position} center
+   * @param {number} radius
+   * @returns {Position[]}
+   */
   const getCirclePoints = (center, radius) => {
     const points = [];
     const numSegments = 360;
@@ -101,6 +130,11 @@ const Map = () => {
     return points;
   };
 
+  /**
+   * @param {Position} point1
+   * @param {Position} point2
+   * @returns {number}
+   */
   const haversineDistance = (point1, point2) => {
     const toRadians = (angle) => (angle * Math.PI) / 180;
 

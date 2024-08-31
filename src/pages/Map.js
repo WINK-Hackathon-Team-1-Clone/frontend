@@ -18,6 +18,7 @@ import {
   faPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import TextArea from "antd/es/input/TextArea";
+import axios from "axios";
 
 const { Content } = Layout;
 const CategoryData = {
@@ -262,16 +263,38 @@ const Map = () => {
               }))
             );
           },
-          {
-            bounds,
-          }
+          { bounds }
         );
+      });
+    };
+
+    const albamonSearch = async (category, bounds) => {
+      const res = await axios.post("https://10.223.126.146:443/albamon", [
+        {
+          lat: bounds.getSouthWest().getLat(),
+          lng: bounds.getSouthWest().getLng(),
+        },
+        {
+          lat: bounds.getNorthEast().getLat(),
+          lng: bounds.getNorthEast().getLng(),
+        },
+      ]);
+      return res.data.map((e) => {
+        return {
+          position: {
+            lat: e.latitude,
+            lng: e.longitude,
+          },
+          content: `${e.title}\n${e.company}\n${e.payType} ${e.pay}`,
+          category,
+        };
       });
     };
 
     const search = (category, bounds) => {
       switch (category) {
         case "WORK":
+          return albamonSearch(category, bounds);
         case "CUSTOM":
           return [];
         default:
@@ -384,7 +407,13 @@ const Map = () => {
               }}
             >
               {info && info.content === marker.content && (
-                <div style={{ padding: "5px", color: "#000" }}>
+                <div
+                  style={{
+                    padding: "5px",
+                    color: "#000",
+                    whiteSpace: "pre-line",
+                  }}
+                >
                   {marker.content}
                 </div>
               )}

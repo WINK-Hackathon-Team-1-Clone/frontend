@@ -71,6 +71,7 @@ const Map = () => {
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalPlace, setModalPlace] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
   /** @type {ReturnType<typeof useState<Position | undefined>>} */
@@ -174,6 +175,13 @@ const Map = () => {
     return EARTH_RADIUS * c;
   };
 
+  const getUserId = async () => {
+    const res = await axios.get("https://10.223.126.146:443/user-info", {
+      withCredentials: true,
+    });
+    return res.data.userId;
+  };
+
   const setPosWithGPS = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -200,19 +208,29 @@ const Map = () => {
   };
 
   const handleOk = async () => {
-    if (!modalTitle || !modalContent || !modalPosition) return;
+    if (!modalPlace || !modalTitle || !modalContent || !modalPosition) return;
     setConfirmLoading(true);
-    setTimeout(async () => {
-      await searchPlaces(map);
-      setClickPos(undefined);
-      setConfirmLoading(false);
-      handleCancel();
-    }, 1000);
+    const res = await axios.post("https://10.223.126.146:443/communityList", {
+      placeName: modalPlace,
+      userId: await getUserId(),
+      x: modalPosition.lng,
+      y: modalPosition.lat,
+    });
+    await axios.post(`https://10.223.126.146:443/community`, {
+      listId: res.data.id,
+      title: modalTitle,
+      content: modalContent,
+    });
+    await searchPlaces(map);
+    setClickPos(undefined);
+    setConfirmLoading(false);
+    handleCancel();
   };
 
   // close and resets
   const handleCancel = () => {
     setOpen(false);
+    setModalPlace("");
     setModalTitle("");
     setModalContent("");
     setModalPosition(undefined);
@@ -281,6 +299,7 @@ const Map = () => {
       ]);
       return res.data.map((e) => {
         return {
+          id: e.id,
           position: {
             lat: e.latitude,
             lng: e.longitude,
@@ -291,12 +310,30 @@ const Map = () => {
       });
     };
 
+    const customSearch = async (category) => {
+      const userId = await getUserId();
+      const res = await axios.get(
+        `https://10.223.126.146:443/communityList/${userId}`
+      );
+      return res.data.map((e) => {
+        return {
+          id: e.id,
+          position: {
+            lat: e.y,
+            lng: e.x,
+          },
+          content: e.placeName,
+          category,
+        };
+      });
+    };
+
     const search = (category, bounds) => {
       switch (category) {
         case "WORK":
           return albamonSearch(category, bounds);
         case "CUSTOM":
-          return [];
+          return customSearch(category);
         default:
           return kakaoSearch(category, bounds);
       }
@@ -408,6 +445,13 @@ const Map = () => {
             >
               {info && info.content === marker.content && (
                 <div
+                  onClick={() => {
+                    info.category === "WORK" &&
+                      window.open(
+                        `https://www.albamon.com/jobs/detail/${info.id}`
+                      );
+                    info.category === "CUSTOM" && alert("not implemented");
+                  }}
                   style={{
                     padding: "5px",
                     color: "#000",
@@ -463,6 +507,12 @@ const Map = () => {
                   confirmLoading={confirmLoading}
                   onCancel={handleCancel}
                 >
+                  <Input
+                    value={modalPlace}
+                    onChange={(e) => setModalPlace(e.target.value)}
+                    style={{ marginBottom: 10 }}
+                    placeholder="장소 이름"
+                  />
                   <Input
                     value={modalTitle}
                     onChange={(e) => setModalTitle(e.target.value)}

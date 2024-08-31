@@ -217,7 +217,7 @@ const Map = () => {
       y: modalPosition.lat,
     });
     await axios.post(`https://10.223.126.146:443/community`, {
-      listId: res.data.id,
+      listId: Number.parseInt(res.data),
       title: modalTitle,
       content: modalContent,
     });
@@ -480,15 +480,11 @@ const Map = () => {
                   padding: "5px",
                   color: "#000",
                   width: 200,
-                  height: 200,
+                  height: 45,
                 }}
               >
-                <div>asdf</div>
-                <div>asdf</div>
                 <Button
                   style={{
-                    position: "absolute",
-                    bottom: 7,
                     width: 188,
                     overflow: "hidden",
                   }}

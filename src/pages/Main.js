@@ -1,13 +1,7 @@
 import React from "react";
-import { Layout, Menu, Form, Input, Button, Row, Col } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAlignJustify,
-  faMap,
-  faUserLarge,
-} from "@fortawesome/free-solid-svg-icons";
-
-const { Content, Footer } = Layout;
+import { Layout, Form, Input, Button, Row, Col } from "antd";
+import BottomFooter from "../components/BottomFooter";
+const { Content } = Layout;
 
 function Main() {
   const onFinish = (values) => {
@@ -30,7 +24,7 @@ function Main() {
             borderRadius: "10px",
           }}
         >
-          <h1>Welcome to Ant Design with React</h1>
+          <h1>서비스 이름</h1>
           <Row justify="center">
             <Col xs={24} sm={16} md={12} lg={8} xl={6}>
               <Form
@@ -41,20 +35,20 @@ function Main() {
                 style={{ marginTop: 24 }}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
+                  label="아이디"
+                  name="userId"
                   rules={[
-                    { required: true, message: "Please input your username!" },
+                    { required: true, message: "아이디를 입력해 주세요!" },
                   ]}
                 >
                   <Input />
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
+                  label="비밀번호"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" },
+                    { required: true, message: "비밀번호를 입력해 주세요!" },
                   ]}
                 >
                   <Input.Password />
@@ -74,61 +68,6 @@ function Main() {
           </Row>
         </div>
       </Content>
-      <Footer style={{ padding: 0, overflow: "hidden" }}>
-        <Menu
-          mode="horizontal"
-          defaultSelectedKeys={["1"]}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <Menu.Item key="1">
-            <div
-              style={{
-                textAlign: "center",
-                fontSize: "12px",
-                margin: 0,
-                width: 55,
-              }}
-            >
-              <FontAwesomeIcon icon={faMap} style={{ fontSize: "24px" }} />
-              <div style={{ marginTop: -30, marginBottom: -10 }}>편의맵</div>
-            </div>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <div
-              style={{
-                textAlign: "center",
-                fontSize: "12px",
-                margin: 0,
-                width: 55,
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faAlignJustify}
-                style={{ fontSize: "24px" }}
-              />
-              <div style={{ marginTop: -30, marginBottom: -10 }}>게시판</div>
-            </div>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <div
-              style={{
-                textAlign: "center",
-                fontSize: "12px",
-                margin: 0,
-                width: 55,
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faUserLarge}
-                style={{ fontSize: "24px" }}
-              />
-              <div style={{ marginTop: -30, marginBottom: -10 }}>
-                마이페이지
-              </div>
-            </div>
-          </Menu.Item>
-        </Menu>
-      </Footer>
     </Layout>
   );
 }

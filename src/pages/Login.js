@@ -3,7 +3,6 @@ import { Layout, Form, Input, Button, Row, Col } from "antd";
 import { LeftOutlined} from '@ant-design/icons';
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import BottomFooter from "../components/BottomFooter";
 
 
 const { Content } = Layout;
@@ -18,7 +17,6 @@ function Login() {
   };
   const [userId,setUserId] = useState('');
   const [password,setPassword] = useState('');
-  const [isLoginOk, setIsLoginOk] = useState(false);
   const navigate = useNavigate();
   const LoginFunc = async (e) => {
       axios.post('https://10.223.126.146:443/login', {userId, password}, {

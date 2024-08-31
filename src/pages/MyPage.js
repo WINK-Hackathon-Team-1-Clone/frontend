@@ -6,21 +6,6 @@ import axios from "axios";
 import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
-const { Option } = Select;
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 16,
-    },
-};
-const tailLayout = {
-    wrapperCol: {
-        offset: 5,
-        span: 10,
-    },
-};
 const MyPage = () => {
     const [form] = Form.useForm();
     const [userId,setUserId] = useState('');

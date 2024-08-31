@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout, Form, Button, Row, Col } from "antd";
 import {Link} from "react-router-dom";
-import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
 function Main() {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import { Layout, Button, Form, Input, Select, Space } from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
@@ -6,7 +6,6 @@ import axios from "axios";
 import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
-const { Option } = Select;
 const layout = {
     labelCol: {
         span: 8,
@@ -30,17 +29,12 @@ const EditInfo = () => {
     const [newPassword, setNewpassword] = useState('');
     const navigate = useNavigate();
 
-
-
-
-
     const onFinish = (values) => {
         console.log(values);
     };
     const onReset = () => {
         form.resetFields();
     };
-
 
     const clickEditUser = () =>{
 
@@ -57,10 +51,6 @@ const EditInfo = () => {
             alert("아이디, 현재 비밀번호, 혹은 닉네임을 맞게 입력하였는지 확인하여 주십시오.")
         })
     }
-
-
-
-
 
     return (
         <Layout style={{ minHeight: "100vh" }}>

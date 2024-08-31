@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Button } from "antd";
+import { Layout, Button, Modal, Input, Typography } from "antd";
 import BottomFooter from "../components/BottomFooter";
 import {
   Circle,
@@ -13,9 +13,11 @@ import {
   faBurger,
   faHouse,
   faLocation,
+  faLocationDot,
   faMugHot,
   faPlane,
 } from "@fortawesome/free-solid-svg-icons";
+import TextArea from "antd/es/input/TextArea";
 
 const { Content } = Layout;
 const CategoryData = {
@@ -44,6 +46,11 @@ const CategoryData = {
     icon: faBriefcase,
     iconImage: "/icons/briefcase_suitcase_icon.png",
   },
+  CUSTOM: {
+    name: "기록",
+    icon: faLocationDot,
+    iconImage: "/icons/location_dot_icon.png",
+  },
 };
 
 const Map = () => {
@@ -60,6 +67,15 @@ const Map = () => {
    * @prop {string} content
    * @prop {string} category
    */
+
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
+  /** @type {ReturnType<typeof useState<Position | undefined>>} */
+  const [modalPosition, setModalPosition] = useState();
+
+  const [resetKey, setResetKey] = useState(0);
 
   /** @type {ReturnType<typeof useState<kakao.maps.Map>>} */
   const [map, setMap] = useState(null);
@@ -78,6 +94,9 @@ const Map = () => {
 
   /** @type {ReturnType<typeof useState<Position>>} */
   const [center, setCenter] = useState({ lat: 37.5665, lng: 126.978 });
+
+  /** @type {ReturnType<typeof useState<Position | undefined>>} */
+  const [clickPos, setClickPos] = useState();
 
   /**
    * @param {Position} center
@@ -175,6 +194,29 @@ const Map = () => {
     );
   };
 
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = async () => {
+    if (!modalTitle || !modalContent || !modalPosition) return;
+    setConfirmLoading(true);
+    setTimeout(async () => {
+      await searchPlaces(map);
+      setClickPos(undefined);
+      setConfirmLoading(false);
+      handleCancel();
+    }, 1000);
+  };
+
+  // close and resets
+  const handleCancel = () => {
+    setOpen(false);
+    setModalTitle("");
+    setModalContent("");
+    setModalPosition(undefined);
+  };
+
   useEffect(() => {
     if (!map) return;
     map.setMaxLevel(5);
@@ -228,10 +270,13 @@ const Map = () => {
     };
 
     const search = (category, bounds) => {
-      if (category !== "WORK") {
-        return kakaoSearch(category, bounds);
+      switch (category) {
+        case "WORK":
+        case "CUSTOM":
+          return [];
+        default:
+          return kakaoSearch(category, bounds);
       }
-      return [];
     };
 
     // eslint-disable-next-line no-undef
@@ -283,6 +328,9 @@ const Map = () => {
   };
 
   const toggleCategory = (category) => {
+    if (category === "CUSTOM") {
+      setClickPos(undefined);
+    }
     if (categories.includes(category)) {
       setCategories(categories.filter((e) => e !== category));
     } else {
@@ -312,7 +360,12 @@ const Map = () => {
             searchPlaces(map);
           }}
           onClick={(map, event) => {
-            console.log(event.latLng.getLat(), event.latLng.getLng());
+            // console.log(event.latLng.getLat(), event.latLng.getLng());
+            setClickPos({
+              lat: event.latLng.getLat(),
+              lng: event.latLng.getLng(),
+            });
+            setResetKey(resetKey + 1);
           }}
         >
           {markers.map((marker) => (
@@ -326,13 +379,77 @@ const Map = () => {
               }}
               key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
               position={marker.position}
-              onClick={() => setInfo(marker)}
+              onClick={() => {
+                setInfo(marker);
+              }}
             >
               {info && info.content === marker.content && (
-                <div style={{ color: "#000" }}>{marker.content}</div>
+                <div style={{ padding: "5px", color: "#000" }}>
+                  {marker.content}
+                </div>
               )}
             </MapMarker>
           ))}
+          {categories.includes("CUSTOM") && clickPos && (
+            <MapMarker
+              key={resetKey}
+              image={{
+                src: CategoryData["CUSTOM"].iconImage,
+                size: {
+                  width: 24,
+                  height: 24,
+                },
+              }}
+              position={clickPos}
+            >
+              <div
+                style={{
+                  padding: "5px",
+                  color: "#000",
+                  width: 200,
+                  height: 200,
+                }}
+              >
+                <div>asdf</div>
+                <div>asdf</div>
+                <Button
+                  style={{
+                    position: "absolute",
+                    bottom: 7,
+                    width: 188,
+                    overflow: "hidden",
+                  }}
+                  type="primary"
+                  onClick={() => {
+                    setModalPosition(clickPos);
+                    showModal();
+                  }}
+                >
+                  등록하기
+                </Button>
+                <Modal
+                  title="기록"
+                  open={open}
+                  onOk={handleOk}
+                  confirmLoading={confirmLoading}
+                  onCancel={handleCancel}
+                >
+                  <Input
+                    value={modalTitle}
+                    onChange={(e) => setModalTitle(e.target.value)}
+                    style={{ marginBottom: 10 }}
+                    placeholder="제목"
+                  />
+                  <TextArea
+                    value={modalContent}
+                    onChange={(e) => setModalContent(e.target.value)}
+                    rows={15}
+                    placeholder="내용"
+                  />
+                </Modal>
+              </div>
+            </MapMarker>
+          )}
           <Polygon
             path={[
               [

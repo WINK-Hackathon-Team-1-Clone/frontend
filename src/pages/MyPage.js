@@ -3,6 +3,7 @@ import {Layout, Button, Form, Input, Select, Space, Col, Row} from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import BottomFooter from "../components/BottomFooter";
 const { Content } = Layout;
 
 const { Option } = Select;
@@ -20,7 +21,7 @@ const tailLayout = {
         span: 10,
     },
 };
-const SignUp = () => {
+const MyPage = () => {
     const [form] = Form.useForm();
     const [userId,setUserId] = useState('');
     const navigate = useNavigate();
@@ -62,12 +63,6 @@ const SignUp = () => {
         }
     }
 
-    useEffect(() => {
-        GetUserFunc();
-    }, []);
-
-
-
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Content style={{ padding: "0 20px", flex: 1 }}>
@@ -80,7 +75,7 @@ const SignUp = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Main" style={{
+                    <Link to="/pages/Login" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>
@@ -136,8 +131,10 @@ const SignUp = () => {
                     </Row>
                 </div>
             </Content>
+            <BottomFooter/>
         </Layout>
+
     );
 }
 
-export default SignUp;
+export default MyPage;

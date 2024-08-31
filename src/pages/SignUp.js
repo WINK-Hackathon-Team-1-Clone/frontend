@@ -70,7 +70,7 @@ const SignUp = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Main" style={{
+                    <Link to="/pages/Login" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>
@@ -149,7 +149,7 @@ const SignUp = () => {
                                     가입 완료
                                 </Button>
                                 <Button htmlType="button" size='large'>
-                                    <Link to="/pages/Main">처음으로</Link>
+                                    <Link to="/pages/Login">처음으로</Link>
                                 </Button>
                                 <Button type="link" htmlType="button" size='large' onClick={onReset}>
                                     초기화

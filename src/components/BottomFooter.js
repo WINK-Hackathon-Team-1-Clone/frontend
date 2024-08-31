@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Layout, Menu, Form, Input, Button, Row, Col } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,9 +15,10 @@ function BottomFooter () {
             <Menu
                 mode="horizontal"
                 defaultSelectedKeys={["1"]}
-                style={{ display: "flex", justifyContent: "center" }}
+                style={{ display: "flex", justifyContent: "center", borderRadius : '10px'
+                }}
             >
-                <Menu.Item key="1">
+                <Menu.Item key={"1"}>
                     <div
                         style={{
                             textAlign: "center",
@@ -30,7 +31,7 @@ function BottomFooter () {
                         <div style={{ marginTop: -30, marginBottom: -10 }}>편의맵</div>
                     </div>
                 </Menu.Item>
-                <Menu.Item key="2">
+                <Menu.Item key={"2"}>
                     <div
                         style={{
                             textAlign: "center",
@@ -46,7 +47,7 @@ function BottomFooter () {
                         <div style={{ marginTop: -30, marginBottom: -10 }}>게시판</div>
                     </div>
                 </Menu.Item>
-                <Menu.Item key="3">
+                <Menu.Item key={"3"}>
                     <div
                         style={{
                             textAlign: "center",

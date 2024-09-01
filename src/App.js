@@ -9,24 +9,23 @@ import Map from "./pages/Map";
 import ArticleList from "./pages/ArticleList";
 import ArticleDetail from "./pages/ArticleDetail";
 
-
 function App() {
   return (
-
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main/>}></Route>
-          <Route path="/pages/Login" element={<Login/>}></Route>
-          <Route path="/pages/SignUp" element={<SignUp/>}></Route>
-          <Route path="/pages/MyPage" element={<MyPage/>}></Route>
-          <Route path="/pages/EditInfo" element={<EditInfo/>}></Route>
-          <Route path="/pages/Map" element={<Map />}></Route>
-          <Route path="/pages/ArticleList" element={<ArticleList />}></Route>
-          <Route path="/pages/ArticleDetail/:id" element={<ArticleDetail />}></Route>
-
-
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />}></Route>
+        <Route path="/pages/Login" element={<Login />}></Route>
+        <Route path="/pages/SignUp" element={<SignUp />}></Route>
+        <Route path="/pages/MyPage" element={<MyPage />}></Route>
+        <Route path="/pages/EditInfo" element={<EditInfo />}></Route>
+        <Route path="/pages/Map" element={<Map />}></Route>
+        <Route path="/pages/ArticleList" element={<ArticleList />}></Route>
+        <Route
+          path="/pages/ArticleDetail/:id"
+          element={<ArticleDetail />}
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

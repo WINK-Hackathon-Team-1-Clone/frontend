@@ -16,7 +16,7 @@ function Main() {
             borderRadius: "10px",
           }}
         >
-          <h1 style={{ marginTop: "60px" }}>첫걸음</h1>
+          <h1 style={{ marginTop: "60px" }}>반경 오백</h1>
           <Row justify="center">
             <Col xs={24} sm={16} md={12} lg={8} xl={6}>
               <Form

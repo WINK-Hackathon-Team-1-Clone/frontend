@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Layout, Button, Form, Input, Select, Space } from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 const { Content } = Layout;
 
@@ -26,15 +26,18 @@ const SignUp = () => {
     const [password,setPassword] = useState('');
     const [passwordAgain,setPasswordAgain] = useState('');
     const [name,setName] = useState('');
+    const navigate = useNavigate();
 
     const SignUpFunc = () => {
         if (password === passwordAgain) {
-            axios.post('https://10.223.126.146:443/members', {userId, password, name}, {
+            axios.post('https://wink.kookm.in/members', {userId, password, name}, {
+
                 withCredentials: true
             })
                 .then(response => {
                     console.log(response.data);
                     alert("회원가입에 성공하셨습니다.")
+                    navigate('/pages/MyPage')
                 })
                 .catch(error => {
                     console.error(error);
@@ -43,6 +46,7 @@ const SignUp = () => {
             alert("비밀번호가 일치하지 않습니다.")
         }
     };
+
 
     const onFinish = (values) => {
         console.log(values);
@@ -64,7 +68,7 @@ const SignUp = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Login" style={{
+                    <Link to="/" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>

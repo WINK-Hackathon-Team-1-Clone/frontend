@@ -18,26 +18,28 @@ function Login() {
   const [userId,setUserId] = useState('');
   const [password,setPassword] = useState('');
   const navigate = useNavigate();
-  const LoginFunc = async (e) => {
-      axios.post('https://10.223.126.146:443/login', {userId, password}, {
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          withCredentials: true
-      })
-          .then(response => {
-              console.log(response.data);
-              alert("로그인에 성공했습니다.")
-              navigate('/pages/MyPage')
-
-          })
-          .catch(error => {
-              console.error(error);
-              alert("아이디 혹은 비밀번호를 다시 한 번 확인해 주세요.")
-          });
 
 
-  };
+    const LoginFunc = async (e) => {
+        axios.post('https://wink.kookm.in/login', {userId, password}, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            withCredentials: true
+        })
+            .then(response => {
+                console.log(response.data);
+                alert("로그인에 성공했습니다.")
+                navigate('/pages/MyPage')
+
+            })
+            .catch(error => {
+                console.error(error);
+                alert("아이디 혹은 비밀번호를 다시 한 번 확인해 주세요.")
+            });
+
+
+    };
 
 
   return (

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Layout, Button, Form, Input, Select, Space, Col, Row} from 'antd';
 import {LeftOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
@@ -10,8 +10,11 @@ const MyPage = () => {
     const [userId,setUserId] = useState('');
     const navigate = useNavigate();
 
+    useEffect(() => {
+        GetUserFunc();
+    }, []);
     const LogoutFunc = async (e) => {
-        axios.post('https://10.223.126.146:443/logout', {}, {
+        axios.post('https://wink.kookm.in/logout', {}, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -26,7 +29,7 @@ const MyPage = () => {
             });
     }
     const GetUserFunc = async (e) => {
-        axios.get('https://10.223.126.146:443/user-info', {withCredentials: true})
+        axios.get('https://wink.kookm.in/user-info', {withCredentials: true})
             .then(response => {
                 console.log(response.data.username);
                 setUserId(response.data.username);
@@ -38,7 +41,7 @@ const MyPage = () => {
 
     const RemoveUserFunc = async (e) => {
         try {
-            let res = await axios.delete(`https://10.223.126.146:443/delete/${userId}`, {withCredentials: true})
+            let res = await axios.delete(`https://wink.kookm.in/delete/${userId}`, {withCredentials: true})
             console.log(res.data.username);
             alert("회원 탈퇴가 정상적으로 이루어졌습니다. 감사합니다.")
             navigate('/')
@@ -59,7 +62,7 @@ const MyPage = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Login" style={{
+                    <Link to="/pages/Map" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>
@@ -67,7 +70,7 @@ const MyPage = () => {
                             style={{marginTop : '40px',
                                 fontSize : '25px'}}/>
                     </Link>
-                    <h1 style={{marginTop : '60px'}}>{userId}의 마이페이지.</h1>
+                    <h1 style={{marginTop : '60px'}}>{userId}의 마이페이지</h1>
 
                     <Row justify="center">
                         <Col xs={24} sm={16} md={12} lg={8} xl={6}>

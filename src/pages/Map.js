@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 const CategoryData = {
@@ -57,6 +58,8 @@ const CategoryData = {
 const Map = () => {
   const LIMIT_METER = 500;
   const EARTH_RADIUS = 6371000;
+
+  const navigate = useNavigate();
 
   /**
    * @typedef Position
@@ -450,7 +453,8 @@ const Map = () => {
                       window.open(
                         `https://www.albamon.com/jobs/detail/${info.id}`
                       );
-                    info.category === "CUSTOM" && alert("not implemented");
+                    info.category === "CUSTOM" &&
+                      navigate("/pages/ArticleList");
                   }}
                   style={{
                     padding: "5px",

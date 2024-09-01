@@ -176,7 +176,7 @@ const Map = () => {
   };
 
   const getUserId = async () => {
-    const res = await axios.get("https://10.223.126.146:443/user-info", {
+    const res = await axios.get("https://wink.kookm.in/user-info", {
       withCredentials: true,
     });
     return res.data.userId;
@@ -210,13 +210,13 @@ const Map = () => {
   const handleOk = async () => {
     if (!modalPlace || !modalTitle || !modalContent || !modalPosition) return;
     setConfirmLoading(true);
-    const res = await axios.post("https://10.223.126.146:443/communityList", {
+    const res = await axios.post("https://wink.kookm.in/communityList", {
       placeName: modalPlace,
       userId: await getUserId(),
       x: modalPosition.lng,
       y: modalPosition.lat,
     });
-    await axios.post(`https://10.223.126.146:443/community`, {
+    await axios.post(`https://wink.kookm.in/community`, {
       listId: Number.parseInt(res.data),
       title: modalTitle,
       content: modalContent,
@@ -287,7 +287,7 @@ const Map = () => {
     };
 
     const albamonSearch = async (category, bounds) => {
-      const res = await axios.post("https://10.223.126.146:443/albamon", [
+      const res = await axios.post("https://wink.kookm.in/albamon", [
         {
           lat: bounds.getSouthWest().getLat(),
           lng: bounds.getSouthWest().getLng(),
@@ -313,7 +313,7 @@ const Map = () => {
     const customSearch = async (category) => {
       const userId = await getUserId();
       const res = await axios.get(
-        `https://10.223.126.146:443/communityList/${userId}`
+        `https://wink.kookm.in/communityList/${userId}`
       );
       return res.data.map((e) => {
         return {

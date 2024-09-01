@@ -6,6 +6,8 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import EditInfo from "./pages/EditInfo";
 import Map from "./pages/Map";
+import ArticleList from "./pages/ArticleList";
+import ArticleDetail from "./pages/ArticleDetail";
 
 
 function App() {
@@ -19,6 +21,10 @@ function App() {
           <Route path="/pages/MyPage" element={<MyPage/>}></Route>
           <Route path="/pages/EditInfo" element={<EditInfo/>}></Route>
           <Route path="/pages/Map" element={<Map />}></Route>
+          <Route path="/pages/ArticleList" element={<ArticleList />}></Route>
+          <Route path="/pages/ArticleDetail/:id" element={<ArticleDetail />}></Route>
+
+
         </Routes>
       </BrowserRouter>
   );

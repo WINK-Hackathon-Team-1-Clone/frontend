@@ -39,7 +39,7 @@ const EditInfo = () => {
     const clickEditUser = () =>{
 
 
-        axios.post('https://10.223.126.146:443/member/edit', {nowPassword, newPassword, userId, name},{
+        axios.post('https://wink.kookm.in/member/edit', {nowPassword, newPassword, userId, name},{
             withCredentials: true // 쿠키를 포함하여 요청
         })
             .then((result)=>{
@@ -64,7 +64,7 @@ const EditInfo = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Link to="/pages/Login" style={{
+                    <Link to="/pages/MyPage" style={{
                         textDecoration : 'none',
                         color : 'black'
                     }}>

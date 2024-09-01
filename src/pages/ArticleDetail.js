@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Card, Button, Row, Col, FloatButton } from "antd";
-import { DeleteOutlined, LeftOutlined } from "@ant-design/icons";
+import { Layout, Row, Col } from "antd";
+import { LeftOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import BottomFooter from "../components/BottomFooter";
 import axios from "axios";
 const { Content } = Layout;
 
 const ArticleDetail = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [userId, setUserId] = useState("");
-  const [numOfArticle, setNumOfArticle] = useState(0);
-  const [articleTitle, setArticleTitle] = useState("");
-  const [articleContent, setArticleContent] = useState("");
   const [article, setArticle] = useState([]);
 
   const params = useParams();

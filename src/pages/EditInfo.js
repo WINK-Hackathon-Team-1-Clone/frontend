@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Button, Form, Input, Select, Space } from "antd";
+import { Layout, Button, Form, Input, Space } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -23,7 +23,6 @@ const tailLayout = {
 const EditInfo = () => {
   const [form] = Form.useForm();
   const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [nowPassword, setNowpassword] = useState("");
   const [newPassword, setNewpassword] = useState("");
@@ -107,7 +106,7 @@ const EditInfo = () => {
             <Form.Item
               name="nowPassword"
               label="현재 비밀번호 입력"
-              value={password}
+              value={nowPassword}
               onChange={(e) => setNowpassword(e.target.value)}
               rules={[
                 {

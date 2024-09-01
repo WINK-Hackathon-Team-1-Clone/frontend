@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Button, Modal, Input, Typography } from "antd";
+import { Layout, Button, Modal, Input } from "antd";
 import BottomFooter from "../components/BottomFooter";
 import {
   Circle,

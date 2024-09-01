@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Divider, List, Skeleton } from "antd";
-import { Layout, Form, Button, Row, Col } from "antd";
+import { Divider, List, Skeleton } from "antd";
+import { Layout, Row, Col } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import BottomFooter from "../components/BottomFooter";
@@ -8,12 +8,6 @@ import axios from "axios";
 const { Content } = Layout;
 
 const ArticleList = () => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [userId, setUserId] = useState("");
-  const [numOfArticle, setNumOfArticle] = useState(0);
-  const [articleTitle, setArticleTitle] = useState("");
-  const [articleDate, setArticleDate] = useState("");
   const [article, setArticle] = useState([]);
 
   const getUserId = async () => {
